@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentiMarket</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Inter,sans-serif
+}
+body{
+background:#0f172a;
+color:#e5e7eb
+}
+header{
+position:relative;
+z-index:10;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px
+}
+.logo{
+font-size:24px;
+font-weight:700;
+color:#38bdf8
+}
+nav a{
+margin-left:25px;
+text-decoration:none;
+color:#e5e7eb;
+font-weight:500
+}
+nav a:hover{
+color:#38bdf8
+}
+.nav-login{
+padding:8px 16px;
+border-radius:6px;
+border:1px solid #475569
+}
+.nav-signup{
+padding:8px 18px;
+border-radius:6px;
+background:#22c55e;
+color:#022c22;
+font-weight:600
+}
+.hero{
+position:relative;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+overflow:hidden
+}
+.hero video{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+opacity: 0.5;
+}
+.hero-overlay{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(2,6,23,.75)
+}
+.hero-content{
+position:relative;
+z-index:5;
+padding:0 20px
+}
+.hero h1{
+font-size:52px;
+max-width:900px;
+line-height:1.2
+}
+.hero span{
+color:#22c55e
+}
+.hero p{
+margin-top:20px;
+max-width:720px;
+font-size:18px;
+color:#cbd5f5
+}
+.hero-buttons{
+margin-top:35px
+}
+.hero-buttons button{
+padding:14px 32px;
+border-radius:6px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+margin:0 10px
+}
+.primary-btn{
+background:#22c55e;
+border:none;
+color:#022c22
+}
+.secondary-btn{
+background:transparent;
+border:1px solid #38bdf8;
+color:#38bdf8
+}
+.secondary-btn:hover{
+box-shadow:0 0 12px rgba(56,189,248,.35)
+}
+.section{
+padding:90px 60px
+}
+.section-title{
+text-align:center;
+font-size:34px;
+margin-bottom:50px
+}
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px
+}
+.feature-card{
+background:#020617;
+padding:30px;
+border-radius:12px;
+transition:.3s
+}
+.feature-card:hover{
+transform:translateY(-8px)
+}
+.feature-card h3{
+margin-bottom:12px;
+color:#38bdf8
+}
+.feature-card p{
+color:#cbd5f5;
+font-size:15px
+}
+.workflow{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px
+}
+.workflow div{
+background:#020617;
+padding:25px;
+border-radius:12px
+}
+.workflow h4{
+color:#22c55e;
+margin-bottom:10px
+}
+.tech-stack{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:20px
+}
+.tech{
+padding:12px 22px;
+border:1px solid #475569;
+border-radius:20px;
+color:#cbd5f5
+}
+.developers{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:40px;
+max-width:900px;
+margin:auto
+}
+.dev-card{
+background:#020617;
+padding:30px;
+border-radius:14px;
+text-align:center
+}
+.dev-photo{
+width:140px;
+height:140px;
+border-radius:50%;
+background:#020617;
+border:2px solid #38bdf8;
+margin:0 auto 20px
+}
+.dev-photo img{
+width:100%;
+height:100%;
+object-fit:cover;
+border-radius:50%
+}
+.dev-card h3{
+margin-bottom:8px;
+color:#38bdf8
+}
+.dev-card p{
+font-size:14px;
+color:#cbd5f5
+}
+footer{
+padding:30px;
+text-align:center;
+background:#020617;
+color:#94a3b8;
+font-size:14px
+}
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo">SentiMarket</div>
+<nav>
+<a href="index.html">Home</a>
+<a href="about.html">About Us</a>
+<a href="login.html" class="nav-login">Sign In</a>
+<a href="register.html" class="nav-signup">Sign Up</a>
+</nav>
+</header>
+
+<section class="hero">
+<video autoplay muted loop>
+<source src="assets/video/Fintech_Abstract_Background_Video_Generation.mp4" type="video/mp4">
+</video>
+<div class="hero-overlay"></div>
+<div class="hero-content">
+<h1>Understand Markets Through <span>Data & Sentiment</span></h1>
+<p>SentiMarket visualizes stock trends, sentiment signals, and analytical insights through a modern educational dashboard.</p>
+<div class="hero-buttons">
+<button class="primary-btn" onclick="goRegister()">Get Started</button>
+<button class="secondary-btn" onclick="goLogin()">Sign In</button>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2 class="section-title">Core Features</h2>
+<div class="features">
+<div class="feature-card">
+<h3>Stock Trend Analysis</h3>
+<p>Interactive price charts, indicators, and historical movement visualization.</p>
+</div>
+<div class="feature-card">
+<h3>News Sentiment Analysis</h3>
+<p>Positive, neutral, and negative sentiment insights from financial news.</p>
+</div>
+<div class="feature-card">
+<h3>Correlation Analytics</h3>
+<p>Overlay sentiment trends with price movements for deeper understanding.</p>
+</div>
+<div class="feature-card">
+<h3>Educational Dashboard</h3>
+<p>Structured UI designed for students and beginner analysts.</p>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2 class="section-title">How It Works</h2>
+<div class="workflow">
+<div>
+<h4>1. Fetch Data</h4>
+<p>Stock prices and financial news are collected from reliable sources.</p>
+</div>
+<div>
+<h4>2. Analyze</h4>
+<p>Sentiment and price data are processed and structured.</p>
+</div>
+<div>
+<h4>3. Visualize</h4>
+<p>Charts and indicators present insights clearly.</p>
+</div>
+<div>
+<h4>4. Learn</h4>
+<p>Users explore market behavior through data-driven views.</p>
+</div>
+</div>
+</section>
+
+<section class="section">
+<h2 class="section-title">Technology Stack</h2>
+<div class="tech-stack">
+<div class="tech">HTML</div>
+<div class="tech">CSS</div>
+<div class="tech">JavaScript</div>
+<div class="tech">FastAPI</div>
+<div class="tech">JWT Auth</div>
+<div class="tech">REST APIs</div>
+<div class="tech">Cloud Deployment</div>
+</div>
+</section>
+
+<section class="section">
+<h2 class="section-title">Developers</h2>
+<div class="developers">
+<div class="dev-card">
+<div class="dev-photo">
+<img src="assets/img/Dhruvil.jpg" alt="Dhruvil Patel">
+</div>
+<h3>Dhruvil Patel</h3>
+<p>Logic Builder • Backend Development • Deployment Architecture</p>
+</div>
+<div class="dev-card">
+<div class="dev-photo">
+<img src="assets/img/Rajvee.png" alt="Rajvee Padmani">
+</div>
+<h3>Rajvee Padmani</h3>
+<p>Frontend Design • UI/UX • Version Control • Deployment</p>
+</div>
+</div>
+</section>
+
+
+<footer>
+© 2026 SentiMarket • Academic Project • Web Application Development
+</footer>
+
+<script>
+function goRegister(){window.location.href="register.html"}
+function goLogin(){window.location.href="login.html"}
+</script>
+
+</body>
+</html>

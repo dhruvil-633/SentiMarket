@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register | SentiMarket</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
+body{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#020617,#0f172a);
+color:#e5e7eb
+}
+.container{
+background:#020617;
+padding:45px;
+width:100%;
+max-width:440px;
+border-radius:16px;
+box-shadow:0 20px 40px rgba(0,0,0,.6)
+}
+h1{
+text-align:center;
+margin-bottom:30px;
+color:#38bdf8
+}
+.field{
+margin-bottom:18px;
+position:relative
+}
+input{
+width:100%;
+padding:14px;
+border-radius:8px;
+border:1px solid #475569;
+background:transparent;
+color:#e5e7eb;
+font-size:14px
+}
+input:focus{
+outline:none;
+border-color:#38bdf8
+}
+.error{
+font-size:12px;
+color:#f87171;
+margin-top:6px;
+display:none
+}
+button{
+margin-top:10px;
+padding:15px;
+width:100%;
+border:none;
+border-radius:8px;
+background:#22c55e;
+color:#022c22;
+font-weight:700;
+cursor:pointer;
+font-size:15px
+}
+button:hover{
+background:#16a34a
+}
+.link{
+margin-top:22px;
+text-align:center;
+font-size:14px
+}
+.link a{
+color:#38bdf8;
+text-decoration:none
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h1>Create Account</h1>
+<form id="registerForm">
+<div class="field">
+<input type="text" id="name" placeholder="Full Name">
+<div class="error" id="nameError">Name is required</div>
+</div>
+<div class="field">
+<input type="email" id="email" placeholder="Email Address">
+<div class="error" id="emailError">Enter a valid email</div>
+</div>
+<div class="field">
+<input type="password" id="password" placeholder="Password">
+<div class="error" id="passwordError">Minimum 8 characters</div>
+</div>
+<div class="field">
+<input type="password" id="confirmPassword" placeholder="Confirm Password">
+<div class="error" id="confirmError">Passwords do not match</div>
+</div>
+<button type="submit">Sign Up</button>
+</form>
+<div class="link">
+Already have an account? <a href="login.html">Sign In</a>
+</div>
+</div>
+
+<script>
+const form=document.getElementById("registerForm")
+form.addEventListener("submit",e=>{
+e.preventDefault()
+let valid=true
+const name=document.getElementById("name")
+const email=document.getElementById("email")
+const password=document.getElementById("password")
+const confirm=document.getElementById("confirmPassword")
+
+document.querySelectorAll(".error").forEach(el=>el.style.display="none")
+
+if(name.value.trim()===""){
+document.getElementById("nameError").style.display="block"
+valid=false
+}
+if(!/^\S+@\S+\.\S+$/.test(email.value)){
+document.getElementById("emailError").style.display="block"
+valid=false
+}
+if(password.value.length<8){
+document.getElementById("passwordError").style.display="block"
+valid=false
+}
+if(password.value!==confirm.value){
+document.getElementById("confirmError").style.display="block"
+valid=false
+}
+if(valid){
+alert("Registration successful")
+window.location.href="login.html"
+}
+})
+</script>
+
+</body>
+</html>
