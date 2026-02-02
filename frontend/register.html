@@ -1,144 +1,426 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Register | SentiMarket</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,sans-serif}
-body{
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:linear-gradient(135deg,#020617,#0f172a);
-color:#e5e7eb
-}
-.container{
-background:#020617;
-padding:45px;
-width:100%;
-max-width:440px;
-border-radius:16px;
-box-shadow:0 20px 40px rgba(0,0,0,.6)
-}
-h1{
-text-align:center;
-margin-bottom:30px;
-color:#38bdf8
-}
-.field{
-margin-bottom:18px;
-position:relative
-}
-input{
-width:100%;
-padding:14px;
-border-radius:8px;
-border:1px solid #475569;
-background:transparent;
-color:#e5e7eb;
-font-size:14px
-}
-input:focus{
-outline:none;
-border-color:#38bdf8
-}
-.error{
-font-size:12px;
-color:#f87171;
-margin-top:6px;
-display:none
-}
-button{
-margin-top:10px;
-padding:15px;
-width:100%;
-border:none;
-border-radius:8px;
-background:#22c55e;
-color:#022c22;
-font-weight:700;
-cursor:pointer;
-font-size:15px
-}
-button:hover{
-background:#16a34a
-}
-.link{
-margin-top:22px;
-text-align:center;
-font-size:14px
-}
-.link a{
-color:#38bdf8;
-text-decoration:none
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | SentiMarket</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #38bdf8;
+            --secondary: #22c55e;
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shine: rgba(255, 255, 255, 0.03);
+            --error: #ef4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bg-dark);
+            background-image:
+                radial-gradient(circle at 15% 50%, rgba(56, 189, 248, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(34, 197, 94, 0.08), transparent 25%);
+            color: var(--text-main);
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated background elements */
+        .bg-shape {
+            position: absolute;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: float 10s infinite ease-in-out;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(56, 189, 248, 0.15);
+            top: -50px;
+            left: -50px;
+            border-radius: 50%;
+        }
+
+        .shape-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(34, 197, 94, 0.1);
+            bottom: -100px;
+            right: -100px;
+            border-radius: 50%;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(20px, 20px);
+            }
+        }
+
+        .container {
+            background: var(--bg-card);
+            padding: 50px;
+            width: 100%;
+            max-width: 480px;
+            /* Slightly wider for register */
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Shine effect */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            font-size: 14px;
+        }
+
+        .field {
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .field label {
+            position: absolute;
+            left: 16px;
+            top: 16px;
+            color: var(--text-muted);
+            font-size: 14px;
+            pointer-events: none;
+            transition: all 0.3s ease;
+            background: transparent;
+            padding: 0 4px;
+        }
+
+        input {
+            width: 100%;
+            padding: 16px 16px;
+            padding-top: 16px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: rgba(15, 23, 42, 0.6);
+            color: var(--text-main);
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus,
+        input:not(:placeholder-shown) {
+            border-color: var(--primary);
+            outline: none;
+            background: rgba(15, 23, 42, 0.8);
+            box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.1);
+        }
+
+        input:focus~label,
+        input:not(:placeholder-shown)~label {
+            top: -10px;
+            left: 12px;
+            font-size: 12px;
+            color: var(--primary);
+            background: var(--bg-card);
+            border-radius: 4px;
+        }
+
+        .error {
+            font-size: 12px;
+            color: var(--error);
+            margin-top: 8px;
+            display: none;
+            padding-left: 4px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 16px;
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--secondary), #16a34a);
+            color: #022c22;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.2);
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(34, 197, 94, 0.3);
+            filter: brightness(1.1);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .link {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .link a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .link a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .link a:hover::after {
+            width: 100%;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .home-link {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s;
+            z-index: 10;
+        }
+
+        .home-link:hover {
+            color: var(--text-main);
+        }
+
+        @media (max-width: 500px) {
+            .container {
+                padding: 30px 20px;
+                max-width: 90%;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="container">
-<h1>Create Account</h1>
-<form id="registerForm">
-<div class="field">
-<input type="text" id="name" placeholder="Full Name">
-<div class="error" id="nameError">Name is required</div>
-</div>
-<div class="field">
-<input type="email" id="email" placeholder="Email Address">
-<div class="error" id="emailError">Enter a valid email</div>
-</div>
-<div class="field">
-<input type="password" id="password" placeholder="Password">
-<div class="error" id="passwordError">Minimum 8 characters</div>
-</div>
-<div class="field">
-<input type="password" id="confirmPassword" placeholder="Confirm Password">
-<div class="error" id="confirmError">Passwords do not match</div>
-</div>
-<button type="submit">Sign Up</button>
-</form>
-<div class="link">
-Already have an account? <a href="login.html">Sign In</a>
-</div>
-</div>
+    <!-- Background Shapes -->
+    <div class="bg-shape shape-1"></div>
+    <div class="bg-shape shape-2"></div>
 
-<script>
-const form=document.getElementById("registerForm")
-form.addEventListener("submit",e=>{
-e.preventDefault()
-let valid=true
-const name=document.getElementById("name")
-const email=document.getElementById("email")
-const password=document.getElementById("password")
-const confirm=document.getElementById("confirmPassword")
+    <a href="index.html" class="home-link">← Back to Home</a>
 
-document.querySelectorAll(".error").forEach(el=>el.style.display="none")
+    <div class="container">
+        <h1>Create Account</h1>
+        <p class="subtitle">Join SentiMarket to start analyzing trends</p>
 
-if(name.value.trim()===""){
-document.getElementById("nameError").style.display="block"
-valid=false
-}
-if(!/^\S+@\S+\.\S+$/.test(email.value)){
-document.getElementById("emailError").style.display="block"
-valid=false
-}
-if(password.value.length<8){
-document.getElementById("passwordError").style.display="block"
-valid=false
-}
-if(password.value!==confirm.value){
-document.getElementById("confirmError").style.display="block"
-valid=false
-}
-if(valid){
-alert("Registration successful")
-window.location.href="login.html"
-}
-})
-</script>
+        <form id="registerForm">
+            <div class="field">
+                <input type="text" id="name" placeholder=" " autocomplete="name">
+                <label for="name">Full Name</label>
+                <div class="error" id="nameError">Name is required</div>
+            </div>
+
+            <div class="field">
+                <input type="email" id="email" placeholder=" " autocomplete="email">
+                <label for="email">Email Address</label>
+                <div class="error" id="emailError">Please enter a valid email address</div>
+            </div>
+
+            <div class="field">
+                <input type="password" id="password" placeholder=" ">
+                <label for="password">Password (Min 8 chars)</label>
+                <div class="error" id="passwordError">Password must be at least 8 characters</div>
+            </div>
+
+            <div class="field">
+                <input type="password" id="confirmPassword" placeholder=" ">
+                <label for="confirmPassword">Confirm Password</label>
+                <div class="error" id="confirmError">Passwords do not match</div>
+            </div>
+
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <div class="link">
+            Already have an account? <a href="login.html">Sign In</a>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById("registerForm");
+
+        // Floating label interaction fix
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(input => {
+            if (input.value) {
+                input.classList.add('has-value');
+            }
+            input.addEventListener('input', () => {
+                if (input.value) input.classList.add('has-value');
+                else input.classList.remove('has-value');
+            });
+        });
+
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+            let valid = true;
+            document.querySelectorAll(".error").forEach(el => el.style.display = "none");
+
+            const name = document.getElementById("name");
+            const email = document.getElementById("email");
+            const password = document.getElementById("password");
+            const confirm = document.getElementById("confirmPassword");
+
+            // Name validation
+            if (name.value.trim() === "") {
+                document.getElementById("nameError").style.display = "block";
+                name.style.borderColor = "var(--error)";
+                valid = false;
+            } else {
+                name.style.borderColor = "var(--glass-border)";
+            }
+
+            // Email validation
+            if (!/^\S+@\S+\.\S+$/.test(email.value)) {
+                document.getElementById("emailError").style.display = "block";
+                email.style.borderColor = "var(--error)";
+                valid = false;
+            } else {
+                email.style.borderColor = "var(--glass-border)";
+            }
+
+            // Password validation
+            if (password.value.length < 8) {
+                document.getElementById("passwordError").style.display = "block";
+                password.style.borderColor = "var(--error)";
+                valid = false;
+            } else {
+                password.style.borderColor = "var(--glass-border)";
+            }
+
+            // Confirm Password validation
+            if (password.value !== confirm.value) {
+                document.getElementById("confirmError").style.display = "block";
+                confirm.style.borderColor = "var(--error)";
+                valid = false;
+            } else {
+                confirm.style.borderColor = "var(--glass-border)";
+            }
+
+            if (valid) {
+                // Simulate loading state
+                const btn = form.querySelector('button');
+                btn.innerText = "Creating Account...";
+                btn.style.opacity = "0.7";
+
+                setTimeout(() => {
+                    alert("Registration successful");
+                    window.location.href = "login.html";
+                }, 1000);
+            }
+        });
+
+        // Reset border color on input
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                input.style.borderColor = "var(--glass-border)";
+                const errorId = input.id + "Error";
+                const errorEl = document.getElementById(errorId);
+                // Simple logic to find error element if naming convention holds
+                if (errorEl) errorEl.style.display = 'none';
+                else {
+                    // Fallback search
+                    const parent = input.parentElement;
+                    const error = parent.querySelector('.error');
+                    if (error) error.style.display = 'none';
+                }
+            });
+        });
+    </script>
 
 </body>
+
 </html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | SentiMarket</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i> SentiMarket
+            </div>
+
+            <ul class="nav-links">
+                <li class="active"><a href="#"><i class="fa-solid fa-grid-2"></i> <span>Dashboard</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-chart-line"></i> <span>Analysis</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-newspaper"></i> <span>News Feed</span></a></li>
+                <li><a href="#"><i class="fa-regular fa-star"></i> <span>Watchlist</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-arrow-right-arrow-left"></i> <span>Compare</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-graduation-cap"></i> <span>Education</span></a></li>
+            </ul>
+
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img src="assets/img/Dhruvil.jpg" alt="User"
+                        onerror="this.src='https://ui-avatars.com/api/?name=User&background=38bdf8&color=fff'">
+                </div>
+                <div class="user-info">
+                    <h4>Dhruvil Patel</h4>
+                    <p>Premium Member</p>
+                </div>
+                <button class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i></button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Search stocks, news, or symbols...">
+                </div>
+
+                <div class="top-actions">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+                    <button class="icon-btn"><i class="fa-solid fa-gear"></i></button>
+                </div>
+            </header>
+
+            <!-- Dashboard Content Grid -->
+            <div class="dashboard-grid">
+
+                <!-- Hero / Market Sentiment Overview -->
+                <div class="grid-item hero-widget">
+                    <div class="hero-content">
+                        <h2>Market Sentiment Pulse</h2>
+                        <p class="sentiment-status positive">Bullish <i class="fa-solid fa-arrow-trend-up"></i></p>
+                        <p class="subtitle">AI analysis suggests positive momentum in Tech & Finance sectors.</p>
+                    </div>
+                    <div class="hero-visual">
+                        <!-- 3D Element Placeholder -->
+                        <div class="globe-container">
+                            <div class="globe">
+                                <div class="globe-sphere"></div>
+                                <div class="globe-outer-shadow"></div>
+                                <div class="globe-worldmap">
+                                    <div class="globe-worldmap-back"></div>
+                                    <div class="globe-worldmap-front"></div>
+                                </div>
+                                <div class="globe-inner-shadow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Market Overview Cards -->
+                <div class="grid-item market-indices">
+                    <div class="card-header">
+                        <h3>Market Overview</h3>
+                    </div>
+                    <div class="indices-container">
+                        <div class="index-card">
+                            <div class="index-info">
+                                <span>S&P 500</span>
+                                <h4>4,783.45</h4>
+                            </div>
+                            <div class="index-change positive">+1.24%</div>
+                        </div>
+                        <div class="index-card">
+                            <div class="index-info">
+                                <span>NASDAQ</span>
+                                <h4>15,124.82</h4>
+                            </div>
+                            <div class="index-change positive">+1.85%</div>
+                        </div>
+                        <div class="index-card">
+                            <div class="index-info">
+                                <span>DOW JONES</span>
+                                <h4>37,456.12</h4>
+                            </div>
+                            <div class="index-change negative">-0.12%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trending Stocks -->
+                <div class="grid-item trending-stocks">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-fire"></i> Trending Stocks</h3>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    <div class="stock-list">
+                        <div class="stock-item">
+                            <div class="stock-info">
+                                <div class="stock-icon tesla">T</div>
+                                <div>
+                                    <h4>TSLA</h4>
+                                    <span>Tesla, Inc.</span>
+                                </div>
+                            </div>
+                            <div class="stock-graph">
+                                <canvas id="chart-tsla" height="30"></canvas>
+                            </div>
+                            <div class="stock-price">
+                                <h4>$245.32</h4>
+                                <span class="positive">+3.4%</span>
+                            </div>
+                        </div>
+
+                        <div class="stock-item">
+                            <div class="stock-info">
+                                <div class="stock-icon nvidia">N</div>
+                                <div>
+                                    <h4>NVDA</h4>
+                                    <span>NVIDIA Corp</span>
+                                </div>
+                            </div>
+                            <div class="stock-graph">
+                                <canvas id="chart-nvda" height="30"></canvas>
+                            </div>
+                            <div class="stock-price">
+                                <h4>$546.12</h4>
+                                <span class="positive">+2.1%</span>
+                            </div>
+                        </div>
+
+                        <div class="stock-item">
+                            <div class="stock-info">
+                                <div class="stock-icon apple">A</div>
+                                <div>
+                                    <h4>AAPL</h4>
+                                    <span>Apple Inc.</span>
+                                </div>
+                            </div>
+                            <div class="stock-graph">
+                                <canvas id="chart-aapl" height="30"></canvas>
+                            </div>
+                            <div class="stock-price">
+                                <h4>$192.45</h4>
+                                <span class="negative">-0.5%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sentiment Distribution -->
+                <div class="grid-item sentiment-chart">
+                    <div class="card-header">
+                        <h3>News Sentiment</h3>
+                        <select class="time-select">
+                            <option>Today</option>
+                            <option>This Week</option>
+                        </select>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="sentimentChart"></canvas>
+                    </div>
+                    <div class="sentiment-legend">
+                        <div class="legend-item"><span class="dot positive"></span> Positive</div>
+                        <div class="legend-item"><span class="dot neutral"></span> Neutral</div>
+                        <div class="legend-item"><span class="dot negative"></span> Negative</div>
+                    </div>
+                </div>
+
+                <!-- Watchlist Widget -->
+                <div class="grid-item watchlist">
+                    <div class="card-header">
+                        <h3>My Watchlist</h3>
+                        <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
+                    </div>
+                    <div class="watchlist-items">
+                        <div class="wl-item">
+                            <span class="ticker">AMZN</span>
+                            <span class="mini-graph" data-trend="up"></span>
+                            <span class="price">$154.23</span>
+                            <span class="change positive">+1.2%</span>
+                        </div>
+                        <div class="wl-item">
+                            <span class="ticker">MSFT</span>
+                            <span class="mini-graph" data-trend="up"></span>
+                            <span class="price">$384.67</span>
+                            <span class="change positive">+0.8%</span>
+                        </div>
+                        <div class="wl-item">
+                            <span class="ticker">GOOGL</span>
+                            <span class="mini-graph" data-trend="down"></span>
+                            <span class="price">$142.11</span>
+                            <span class="change negative">-1.1%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent News -->
+                <div class="grid-item news-feed">
+                    <div class="card-header">
+                        <h3>Latest Insights</h3>
+                    </div>
+                    <div class="news-list">
+                        <div class="news-card">
+                            <div class="news-badge positive">Positive</div>
+                            <h4>Tech Sector Rally Continues as AI Demand Soars</h4>
+                            <p>Analysts predict strong Q4 earnings for semiconductor companies...</p>
+                            <span class="news-meta">WSJ • 2h ago</span>
+                        </div>
+                        <div class="news-card">
+                            <div class="news-badge negative">Negative</div>
+                            <h4>Oil Prices Dip Amid Global Supply Concerns</h4>
+                            <p>Energy stocks face volatility as new regulations loom...</p>
+                            <span class="news-meta">Reuters • 4h ago</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>
