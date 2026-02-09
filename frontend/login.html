@@ -111,6 +111,7 @@
             font-size: 32px;
             font-weight: 800;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -1px;
@@ -312,9 +313,8 @@
         </div>
     </div>
 
+    <script src="auth.js"></script>
     <script>
-        const form = document.getElementById("loginForm");
-
         // Floating label interaction fix for autocomplete
         const inputs = document.querySelectorAll('input');
         inputs.forEach(input => {
@@ -325,44 +325,6 @@
                 if (input.value) input.classList.add('has-value');
                 else input.classList.remove('has-value');
             });
-        });
-
-        form.addEventListener("submit", e => {
-            e.preventDefault();
-            let valid = true;
-            document.querySelectorAll(".error").forEach(el => el.style.display = "none");
-
-            const email = document.getElementById("email");
-            const password = document.getElementById("password");
-
-            if (!/^\S+@\S+\.\S+$/.test(email.value)) {
-                document.getElementById("emailError").style.display = "block";
-                email.style.borderColor = "var(--error)";
-                valid = false;
-            } else {
-                email.style.borderColor = "var(--glass-border)";
-            }
-
-            if (password.value.trim() === "") {
-                document.getElementById("passwordError").style.display = "block";
-                password.style.borderColor = "var(--error)";
-                valid = false;
-            } else {
-                password.style.borderColor = "var(--glass-border)";
-            }
-
-            if (valid) {
-                // Simulate loading state
-                const btn = form.querySelector('button');
-                const originalText = btn.innerText;
-                btn.innerText = "Signing in...";
-                btn.style.opacity = "0.7";
-
-                setTimeout(() => {
-                    alert("Login successful");
-                    window.location.href = "index.html"; // Redirect to home/dashboard
-                }, 1000);
-            }
         });
 
         // Reset border color on input

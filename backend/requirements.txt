@@ -1,0 +1,10 @@
+flask
+flask-cors
+yfinance
+transformers
+torch
+python-dotenv
+requests
+pandas
+numpy
+supabase

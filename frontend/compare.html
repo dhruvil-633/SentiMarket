@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Comparison | SentiMarket</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        .compare-grid {
+            display: grid;
+            grid-template-rows: auto auto 1fr;
+            gap: 24px;
+        }
+
+        .stock-selector {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .selected-chips {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .chip {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chip i {
+            cursor: pointer;
+            opacity: 0.7;
+        }
+
+        .chip i:hover {
+            opacity: 1;
+        }
+
+        .compare-search {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            padding: 10px 16px;
+            border-radius: 50px;
+            color: var(--text-main);
+            outline: none;
+            width: 250px;
+        }
+
+        .chart-section {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+            min-height: 400px;
+            position: relative;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            text-align: left;
+            padding: 16px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .comparison-table th {
+            background: rgba(255, 255, 255, 0.02);
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .comparison-table td:first-child {
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .val-positive {
+            color: var(--secondary);
+        }
+
+        .val-negative {
+            color: var(--danger);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i> SentiMarket
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="dashboard.html"><i class="fa-solid fa-grid-2"></i> <span>Dashboard</span></a></li>
+                <li><a href="analysis.html"><i class="fa-solid fa-chart-line"></i> <span>Analysis</span></a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> <span>News Feed</span></a></li>
+                <li><a href="watchlist.html"><i class="fa-regular fa-star"></i> <span>Watchlist</span></a></li>
+                <li class="active"><a href="compare.html"><i class="fa-solid fa-arrow-right-arrow-left"></i>
+                        <span>Compare</span></a></li>
+                <li><a href="#"><i class="fa-solid fa-graduation-cap"></i> <span>Education</span></a></li>
+            </ul>
+
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img src="assets/img/Dhruvil.jpg" alt="User"
+                        onerror="this.src='https://ui-avatars.com/api/?name=User&background=38bdf8&color=fff'">
+                </div>
+                <div class="user-info">
+                    <h4>Dhruvil Patel</h4>
+                    <p>Premium Member</p>
+                </div>
+                <button class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i></button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h2 style="font-family: 'Outfit';">Compare Stocks</h2>
+                <div class="top-actions">
+                    <button class="icon-btn"><i class="fa-solid fa-download"></i></button>
+                    <button class="icon-btn"><i class="fa-solid fa-gear"></i></button>
+                </div>
+            </header>
+
+            <div class="compare-grid">
+                <!-- Stock Selector -->
+                <div class="stock-selector">
+                    <div class="selected-chips">
+                        <div class="chip">TSLA <i class="fa-solid fa-xmark"></i></div>
+                        <div class="chip">AAPL <i class="fa-solid fa-xmark"></i></div>
+                        <div class="chip">NVDA <i class="fa-solid fa-xmark"></i></div>
+                    </div>
+                    <div style="height: 24px; width: 1px; background: var(--glass-border); margin: 0 10px;"></div>
+                    <input type="text" class="compare-search" placeholder="Add stock to compare...">
+                    <button class="primary-btn" style="padding: 10px 24px; margin-left: auto;">Generate Report</button>
+                </div>
+
+                <!-- Comparison Chart -->
+                <div class="chart-section">
+                    <div class="card-header">
+                        <h3>Performance Comparison (YTD)</h3>
+                        <div class="chart-controls" style="display: flex; gap: 10px;">
+                            <button class="secondary-btn" style="padding: 6px 12px; font-size: 12px;">Price</button>
+                            <button class="secondary-btn" style="padding: 6px 12px; font-size: 12px;">Sentiment</button>
+                        </div>
+                    </div>
+                    <div
+                        style="display: flex; align-items: center; justify-content: center; height: 320px; border: 1px dashed var(--glass-border); border-radius: 12px;">
+                        <span style="color: var(--text-muted);"><i class="fa-solid fa-chart-line"></i> Multi-Line
+                            Comparison Chart</span>
+                        <canvas id="compareChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Comparison Table -->
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th style="color: #38bdf8;">TSLA</th>
+                            <th style="color: #94a3b8;">AAPL</th>
+                            <th style="color: #22c55e;">NVDA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Current Price</td>
+                            <td>$245.32</td>
+                            <td>$192.45</td>
+                            <td>$546.12</td>
+                        </tr>
+                        <tr>
+                            <td>Day Change</td>
+                            <td class="val-positive">+3.4%</td>
+                            <td class="val-negative">-0.5%</td>
+                            <td class="val-positive">+2.1%</td>
+                        </tr>
+                        <tr>
+                            <td>YTD Return</td>
+                            <td class="val-negative">-12.5%</td>
+                            <td class="val-positive">+4.2%</td>
+                            <td class="val-positive">+45.8%</td>
+                        </tr>
+                        <tr>
+                            <td>Market Cap</td>
+                            <td>780.2B</td>
+                            <td>3.01T</td>
+                            <td>1.35T</td>
+                        </tr>
+                        <tr>
+                            <td>Avg Sentiment (7d)</td>
+                            <td class="val-positive">Bullish (78)</td>
+                            <td class="val-positive">Positive (65)</td>
+                            <td class="val-positive">Very Bullish (92)</td>
+                        </tr>
+                        <tr>
+                            <td>P/E Ratio</td>
+                            <td>72.4</td>
+                            <td>29.8</td>
+                            <td>64.2</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

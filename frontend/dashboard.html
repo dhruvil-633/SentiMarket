@@ -9,6 +9,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="dashboard.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -24,11 +25,13 @@
             </div>
 
             <ul class="nav-links">
-                <li class="active"><a href="#"><i class="fa-solid fa-grid-2"></i> <span>Dashboard</span></a></li>
-                <li><a href="#"><i class="fa-solid fa-chart-line"></i> <span>Analysis</span></a></li>
-                <li><a href="#"><i class="fa-solid fa-newspaper"></i> <span>News Feed</span></a></li>
-                <li><a href="#"><i class="fa-regular fa-star"></i> <span>Watchlist</span></a></li>
-                <li><a href="#"><i class="fa-solid fa-arrow-right-arrow-left"></i> <span>Compare</span></a></li>
+                <li class="active"><a href="dashboard.html"><i class="fa-solid fa-grid-2"></i>
+                        <span>Dashboard</span></a></li>
+                <li><a href="analysis.html"><i class="fa-solid fa-chart-line"></i> <span>Analysis</span></a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> <span>News Feed</span></a></li>
+                <li><a href="watchlist.html"><i class="fa-regular fa-star"></i> <span>Watchlist</span></a></li>
+                <li><a href="compare.html"><i class="fa-solid fa-arrow-right-arrow-left"></i> <span>Compare</span></a>
+                </li>
                 <li><a href="#"><i class="fa-solid fa-graduation-cap"></i> <span>Education</span></a></li>
             </ul>
 
@@ -55,7 +58,7 @@
                 </div>
 
                 <div class="top-actions">
-                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">0</span></button>
                     <button class="icon-btn"><i class="fa-solid fa-gear"></i></button>
                 </div>
             </header>
@@ -67,8 +70,8 @@
                 <div class="grid-item hero-widget">
                     <div class="hero-content">
                         <h2>Market Sentiment Pulse</h2>
-                        <p class="sentiment-status positive">Bullish <i class="fa-solid fa-arrow-trend-up"></i></p>
-                        <p class="subtitle">AI analysis suggests positive momentum in Tech & Finance sectors.</p>
+                        <p class="sentiment-status">-- <i class="fa-solid fa-minus"></i></p>
+                        <p class="subtitle">Waiting for market data analysis...</p>
                     </div>
                     <div class="hero-visual">
                         <!-- 3D Element Placeholder -->
@@ -92,26 +95,27 @@
                         <h3>Market Overview</h3>
                     </div>
                     <div class="indices-container">
+                        <!-- Backend: Loop through indices here -->
                         <div class="index-card">
                             <div class="index-info">
                                 <span>S&P 500</span>
-                                <h4>4,783.45</h4>
+                                <h4>--</h4>
                             </div>
-                            <div class="index-change positive">+1.24%</div>
+                            <div class="index-change">--%</div>
                         </div>
                         <div class="index-card">
                             <div class="index-info">
                                 <span>NASDAQ</span>
-                                <h4>15,124.82</h4>
+                                <h4>--</h4>
                             </div>
-                            <div class="index-change positive">+1.85%</div>
+                            <div class="index-change">--%</div>
                         </div>
                         <div class="index-card">
                             <div class="index-info">
                                 <span>DOW JONES</span>
-                                <h4>37,456.12</h4>
+                                <h4>--</h4>
                             </div>
-                            <div class="index-change negative">-0.12%</div>
+                            <div class="index-change">--%</div>
                         </div>
                     </div>
                 </div>
@@ -123,55 +127,9 @@
                         <a href="#" class="view-all">View All</a>
                     </div>
                     <div class="stock-list">
-                        <div class="stock-item">
-                            <div class="stock-info">
-                                <div class="stock-icon tesla">T</div>
-                                <div>
-                                    <h4>TSLA</h4>
-                                    <span>Tesla, Inc.</span>
-                                </div>
-                            </div>
-                            <div class="stock-graph">
-                                <canvas id="chart-tsla" height="30"></canvas>
-                            </div>
-                            <div class="stock-price">
-                                <h4>$245.32</h4>
-                                <span class="positive">+3.4%</span>
-                            </div>
-                        </div>
-
-                        <div class="stock-item">
-                            <div class="stock-info">
-                                <div class="stock-icon nvidia">N</div>
-                                <div>
-                                    <h4>NVDA</h4>
-                                    <span>NVIDIA Corp</span>
-                                </div>
-                            </div>
-                            <div class="stock-graph">
-                                <canvas id="chart-nvda" height="30"></canvas>
-                            </div>
-                            <div class="stock-price">
-                                <h4>$546.12</h4>
-                                <span class="positive">+2.1%</span>
-                            </div>
-                        </div>
-
-                        <div class="stock-item">
-                            <div class="stock-info">
-                                <div class="stock-icon apple">A</div>
-                                <div>
-                                    <h4>AAPL</h4>
-                                    <span>Apple Inc.</span>
-                                </div>
-                            </div>
-                            <div class="stock-graph">
-                                <canvas id="chart-aapl" height="30"></canvas>
-                            </div>
-                            <div class="stock-price">
-                                <h4>$192.45</h4>
-                                <span class="negative">-0.5%</span>
-                            </div>
+                        <!-- Backend: Loop through trending stocks here -->
+                        <div style="text-align: center; color: var(--text-muted); padding: 20px;">
+                            No trending data available.
                         </div>
                     </div>
                 </div>
@@ -202,23 +160,9 @@
                         <button class="add-btn"><i class="fa-solid fa-plus"></i></button>
                     </div>
                     <div class="watchlist-items">
-                        <div class="wl-item">
-                            <span class="ticker">AMZN</span>
-                            <span class="mini-graph" data-trend="up"></span>
-                            <span class="price">$154.23</span>
-                            <span class="change positive">+1.2%</span>
-                        </div>
-                        <div class="wl-item">
-                            <span class="ticker">MSFT</span>
-                            <span class="mini-graph" data-trend="up"></span>
-                            <span class="price">$384.67</span>
-                            <span class="change positive">+0.8%</span>
-                        </div>
-                        <div class="wl-item">
-                            <span class="ticker">GOOGL</span>
-                            <span class="mini-graph" data-trend="down"></span>
-                            <span class="price">$142.11</span>
-                            <span class="change negative">-1.1%</span>
+                        <!-- Backend: Loop through watchlist items here -->
+                        <div style="text-align: center; color: var(--text-muted); padding: 20px;">
+                            Your watchlist is empty.
                         </div>
                     </div>
                 </div>
@@ -229,17 +173,9 @@
                         <h3>Latest Insights</h3>
                     </div>
                     <div class="news-list">
-                        <div class="news-card">
-                            <div class="news-badge positive">Positive</div>
-                            <h4>Tech Sector Rally Continues as AI Demand Soars</h4>
-                            <p>Analysts predict strong Q4 earnings for semiconductor companies...</p>
-                            <span class="news-meta">WSJ • 2h ago</span>
-                        </div>
-                        <div class="news-card">
-                            <div class="news-badge negative">Negative</div>
-                            <h4>Oil Prices Dip Amid Global Supply Concerns</h4>
-                            <p>Energy stocks face volatility as new regulations loom...</p>
-                            <span class="news-meta">Reuters • 4h ago</span>
+                        <!-- Backend: Loop through news items here -->
+                        <div style="text-align: center; color: var(--text-muted); padding: 20px;">
+                            Loading news feed...
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Analysis | SentiMarket</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Specific overrides for Analysis page */
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            grid-template-rows: auto auto auto;
+            gap: 24px;
+            grid-template-areas:
+                "header header"
+                "chart indicators"
+                "sentiment sentiment";
+        }
+
+        .stock-header-widget {
+            grid-area: header;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stock-title {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .stock-big-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .chart-widget {
+            grid-area: chart;
+            min-height: 400px;
+        }
+
+        .indicators-widget {
+            grid-area: indicators;
+        }
+
+        .sentiment-analysis-widget {
+            grid-area: sentiment;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 12px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .metric-value {
+            font-size: 15px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i> SentiMarket
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="dashboard.html"><i class="fa-solid fa-grid-2"></i> <span>Dashboard</span></a></li>
+                <li class="active"><a href="analysis.html"><i class="fa-solid fa-chart-line"></i>
+                        <span>Analysis</span></a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> <span>News Feed</span></a></li>
+                <li><a href="watchlist.html"><i class="fa-regular fa-star"></i> <span>Watchlist</span></a></li>
+                <li><a href="compare.html"><i class="fa-solid fa-arrow-right-arrow-left"></i> <span>Compare</span></a>
+                </li>
+                <li><a href="#"><i class="fa-solid fa-graduation-cap"></i> <span>Education</span></a></li>
+            </ul>
+
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img src="assets/img/Dhruvil.jpg" alt="User"
+                        onerror="this.src='https://ui-avatars.com/api/?name=User&background=38bdf8&color=fff'">
+                </div>
+                <div class="user-info">
+                    <h4>Dhruvil Patel</h4>
+                    <p>Premium Member</p>
+                </div>
+                <button class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i></button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="fa-solid fa-search"></i>
+                    <input type="text" placeholder="Search for a stock (e.g. AAPL)...">
+                </div>
+
+                <div class="top-actions">
+                    <button class="icon-btn"><i class="fa-regular fa-bell"></i><span class="badge">3</span></button>
+                    <button class="icon-btn"><i class="fa-solid fa-gear"></i></button>
+                </div>
+            </header>
+
+            <!-- Analysis Content Grid -->
+            <div class="analysis-grid">
+
+                <!-- Stock Header -->
+                <div class="grid-item stock-header-widget">
+                    <div class="stock-title">
+                        <div class="stock-big-icon tesla">T</div>
+                        <div>
+                            <h2 style="font-size: 28px; margin-bottom: 4px;">TSLA</h2>
+                            <span style="color: var(--text-muted);">Tesla, Inc. &#8226; NASDAQ</span>
+                        </div>
+                    </div>
+                    <div class="stock-price-lg" style="text-align: right;">
+                        <h2 style="font-size: 32px; font-family: 'Outfit';">$245.32</h2>
+                        <span class="positive" style="font-size: 16px; font-weight: 600;">+3.4% (+$8.12)</span>
+                    </div>
+                    <button class="primary-btn" style="padding: 10px 20px; font-size: 14px;"><i
+                            class="fa-regular fa-star"></i> Add to Watchlist</button>
+                </div>
+
+                <!-- Main Chart -->
+                <div class="grid-item chart-widget">
+                    <div class="card-header">
+                        <div class="chart-controls" style="display: flex; gap: 10px;">
+                            <button class="secondary-btn" style="padding: 6px 12px; font-size: 12px;">1D</button>
+                            <button class="secondary-btn" style="padding: 6px 12px; font-size: 12px;">1W</button>
+                            <button class="secondary-btn"
+                                style="background: var(--primary); color: #000; padding: 6px 12px; font-size: 12px;">1M</button>
+                            <button class="secondary-btn" style="padding: 6px 12px; font-size: 12px;">1Y</button>
+                        </div>
+                        <div class="chart-options">
+                            <button class="icon-btn" style="width: 32px; height: 32px;"><i
+                                    class="fa-solid fa-maximize"></i></button>
+                        </div>
+                    </div>
+                    <div
+                        style="width: 100%; height: 320px; display: flex; align-items: center; justify-content: center; border: 1px dashed var(--glass-border); border-radius: 12px;">
+                        <span style="color: var(--text-muted);"><i class="fa-solid fa-chart-candlestick"></i> Stock
+                            Chart Placeholder</span>
+                        <!-- Canvas for Chart.js would go here -->
+                        <canvas id="mainStockChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Tech Indicators -->
+                <div class="grid-item indicators-widget">
+                    <div class="card-header">
+                        <h3>Key Metrics</h3>
+                    </div>
+                    <div class="metric-grid">
+                        <div class="metric-card">
+                            <span class="metric-label">Market Cap</span>
+                            <span class="metric-value">780.2B</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">P/E Ratio</span>
+                            <span class="metric-value">72.4</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Avg Volume</span>
+                            <span class="metric-value">120M</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">Beta</span>
+                            <span class="metric-value">2.31</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">52W High</span>
+                            <span class="metric-value">$299.29</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-label">52W Low</span>
+                            <span class="metric-value">$101.81</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 24px;">
+                        <h4 style="font-size: 14px; margin-bottom: 12px; color: var(--text-muted);">Technical Rating
+                        </h4>
+                        <div
+                            style="background: rgba(255,255,255,0.05); height: 8px; border-radius: 4px; position: relative;">
+                            <div style="width: 80%; background: var(--secondary); height: 100%; border-radius: 4px;">
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px;">
+                            <span>Sell</span>
+                            <span>Neutral</span>
+                            <span style="color: var(--secondary); font-weight: 700;">Buy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sentiment Analysis -->
+                <div class="grid-item sentiment-analysis-widget">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-brain"></i> AI Sentiment Analysis</h3>
+                    </div>
+                    <div style="display: flex; gap: 40px; align-items: center;">
+                        <div style="text-align: center;">
+                            <div
+                                style="position: relative; width: 120px; height: 120px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 8px solid var(--glass-border); border-top-color: var(--secondary);">
+                                <span style="font-size: 24px; font-weight: 800;">78</span>
+                            </div>
+                            <span
+                                style="display: block; margin-top: 12px; font-weight: 600; color: var(--secondary);">Very
+                                Bullish</span>
+                        </div>
+                        <div style="flex: 1;">
+                            <h4 style="margin-bottom: 12px;">Recent News Sentiment</h4>
+                            <div class="news-list" style="flex-direction: column; gap: 12px;">
+                                <div class="news-card" style="padding: 12px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                        <span class="news-badge positive" style="position: static;">Positive</span>
+                                        <span class="news-meta">1h ago</span>
+                                    </div>
+                                    <h5 style="font-size: 14px; margin-bottom: 4px;">Tesla expands production in Germany
+                                        factory</h5>
+                                </div>
+                                <div class="news-card" style="padding: 12px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px;">
+                                        <span class="news-badge neutral" style="position: static;">Neutral</span>
+                                        <span class="news-meta">3h ago</span>
+                                    </div>
+                                    <h5 style="font-size: 14px; margin-bottom: 4px;">New EV tax credit regulations
+                                        announced</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

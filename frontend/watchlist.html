@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Watchlist | SentiMarket</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <style>
+        .watchlist-container {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .watchlist-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--glass-bg);
+            padding: 16px 24px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .view-toggle {
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .view-btn {
+            padding: 6px 12px;
+            border-radius: 6px;
+            color: var(--text-muted);
+            cursor: pointer;
+            border: none;
+            background: transparent;
+        }
+
+        .view-btn.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+        }
+
+        .watchlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .stock-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 24px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .stock-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .stock-logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .menu-dots {
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .ticker-name h3 {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        .ticker-name span {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .sparkline-area {
+            height: 60px;
+            margin: 20px 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 30" preserveAspectRatio="none" stroke="%2338bdf8" fill="none"><path d="M0 15 Q 10 5, 20 15 T 40 15 T 60 10 T 80 20 T 100 5" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>');
+            background-size: cover;
+            opacity: 0.6;
+        }
+
+        .card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .price-large {
+            font-size: 24px;
+            font-weight: 700;
+            font-family: 'Outfit';
+        }
+
+        .price-change {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .sentiment-mini {
+            text-align: right;
+        }
+
+        .sentiment-score {
+            font-weight: 700;
+            color: var(--secondary);
+        }
+
+        /* New Stock Card (Add Button) */
+        .add-stock-card {
+            border: 2px dashed var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.2s;
+        }
+
+        .add-stock-card:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(56, 189, 248, 0.05);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-layer-group"></i> SentiMarket
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="dashboard.html"><i class="fa-solid fa-grid-2"></i> <span>Dashboard</span></a></li>
+                <li><a href="analysis.html"><i class="fa-solid fa-chart-line"></i> <span>Analysis</span></a></li>
+                <li><a href="news.html"><i class="fa-solid fa-newspaper"></i> <span>News Feed</span></a></li>
+                <li class="active"><a href="watchlist.html"><i class="fa-regular fa-star"></i>
+                        <span>Watchlist</span></a></li>
+                <li><a href="compare.html"><i class="fa-solid fa-arrow-right-arrow-left"></i> <span>Compare</span></a>
+                </li>
+                <li><a href="#"><i class="fa-solid fa-graduation-cap"></i> <span>Education</span></a></li>
+            </ul>
+
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <img src="assets/img/Dhruvil.jpg" alt="User"
+                        onerror="this.src='https://ui-avatars.com/api/?name=User&background=38bdf8&color=fff'">
+                </div>
+                <div class="user-info">
+                    <h4>Dhruvil Patel</h4>
+                    <p>Premium Member</p>
+                </div>
+                <button class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i></button>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <h2 style="font-family: 'Outfit';">My Watchlist</h2>
+                <div class="top-actions">
+                    <div class="search-bar" style="width: 300px;">
+                        <i class="fa-solid fa-search"></i>
+                        <input type="text" placeholder="Filter watchlist...">
+                    </div>
+                </div>
+            </header>
+
+            <div class="watchlist-container">
+                <!-- Controls -->
+                <div class="watchlist-controls">
+                    <div style="display: flex; gap: 16px; align-items: center;">
+                        <span style="color: var(--text-muted); font-size: 14px;">3 Lists</span>
+                        <select
+                            style="background: rgba(255,255,255,0.05); color: var(--text-main); border: 1px solid var(--glass-border); padding: 6px 12px; border-radius: 8px;">
+                            <option>Main Portfolio</option>
+                            <option>Tech Giants</option>
+                            <option>Energy Sector</option>
+                        </select>
+                        <button class="icon-btn" style="width: 32px; height: 32px;"><i
+                                class="fa-solid fa-plus"></i></button>
+                    </div>
+
+                    <div class="view-toggle">
+                        <button class="view-btn active"><i class="fa-solid fa-grid-2"></i></button>
+                        <button class="view-btn"><i class="fa-solid fa-list"></i></button>
+                    </div>
+                </div>
+
+                <!-- Grid -->
+                <div class="watchlist-grid">
+
+                    <!-- Stock Card 1 -->
+                    <div class="stock-card">
+                        <div class="card-top">
+                            <div class="stock-logo tesla">T</div>
+                            <i class="fa-solid fa-ellipsis-vertical menu-dots"></i>
+                        </div>
+                        <div class="ticker-name">
+                            <h3>TSLA</h3>
+                            <span>Tesla, Inc.</span>
+                        </div>
+                        <div class="sparkline-area"></div>
+                        <div class="card-bottom">
+                            <div>
+                                <div class="price-large">$245.32</div>
+                                <div class="price-change positive"><i class="fa-solid fa-arrow-up"></i> 3.4%</div>
+                            </div>
+                            <div class="sentiment-mini">
+                                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 2px;">Sentiment
+                                </div>
+                                <div class="sentiment-score">Bullish</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stock Card 2 -->
+                    <div class="stock-card">
+                        <div class="card-top">
+                            <div class="stock-logo apple">A</div>
+                            <i class="fa-solid fa-ellipsis-vertical menu-dots"></i>
+                        </div>
+                        <div class="ticker-name">
+                            <h3>AAPL</h3>
+                            <span>Apple Inc.</span>
+                        </div>
+                        <div class="sparkline-area" style="filter: hue-rotate(200deg);"></div>
+                        <div class="card-bottom">
+                            <div>
+                                <div class="price-large">$192.45</div>
+                                <div class="price-change negative"><i class="fa-solid fa-arrow-down"></i> 0.5%</div>
+                            </div>
+                            <div class="sentiment-mini">
+                                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 2px;">Sentiment
+                                </div>
+                                <div class="sentiment-score" style="color: #f59e0b;">Neutral</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stock Card 3 -->
+                    <div class="stock-card">
+                        <div class="card-top">
+                            <div class="stock-logo nvidia">N</div>
+                            <i class="fa-solid fa-ellipsis-vertical menu-dots"></i>
+                        </div>
+                        <div class="ticker-name">
+                            <h3>NVDA</h3>
+                            <span>NVIDIA Corp</span>
+                        </div>
+                        <div class="sparkline-area"></div>
+                        <div class="card-bottom">
+                            <div>
+                                <div class="price-large">$546.12</div>
+                                <div class="price-change positive"><i class="fa-solid fa-arrow-up"></i> 2.1%</div>
+                            </div>
+                            <div class="sentiment-mini">
+                                <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 2px;">Sentiment
+                                </div>
+                                <div class="sentiment-score">Very Bullish</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add New -->
+                    <div class="stock-card add-stock-card">
+                        <i class="fa-solid fa-plus fa-3x" style="margin-bottom: 16px;"></i>
+                        <span style="font-weight: 600;">Add Stock</span>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="bg-orb orb-1"></div>
+    <div class="bg-orb orb-2"></div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

@@ -112,6 +112,7 @@
             font-size: 32px;
             font-weight: 800;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: -1px;
@@ -329,9 +330,8 @@
         </div>
     </div>
 
+    <script src="auth.js"></script>
     <script>
-        const form = document.getElementById("registerForm");
-
         // Floating label interaction fix
         const inputs = document.querySelectorAll('input');
         inputs.forEach(input => {
@@ -342,65 +342,6 @@
                 if (input.value) input.classList.add('has-value');
                 else input.classList.remove('has-value');
             });
-        });
-
-        form.addEventListener("submit", e => {
-            e.preventDefault();
-            let valid = true;
-            document.querySelectorAll(".error").forEach(el => el.style.display = "none");
-
-            const name = document.getElementById("name");
-            const email = document.getElementById("email");
-            const password = document.getElementById("password");
-            const confirm = document.getElementById("confirmPassword");
-
-            // Name validation
-            if (name.value.trim() === "") {
-                document.getElementById("nameError").style.display = "block";
-                name.style.borderColor = "var(--error)";
-                valid = false;
-            } else {
-                name.style.borderColor = "var(--glass-border)";
-            }
-
-            // Email validation
-            if (!/^\S+@\S+\.\S+$/.test(email.value)) {
-                document.getElementById("emailError").style.display = "block";
-                email.style.borderColor = "var(--error)";
-                valid = false;
-            } else {
-                email.style.borderColor = "var(--glass-border)";
-            }
-
-            // Password validation
-            if (password.value.length < 8) {
-                document.getElementById("passwordError").style.display = "block";
-                password.style.borderColor = "var(--error)";
-                valid = false;
-            } else {
-                password.style.borderColor = "var(--glass-border)";
-            }
-
-            // Confirm Password validation
-            if (password.value !== confirm.value) {
-                document.getElementById("confirmError").style.display = "block";
-                confirm.style.borderColor = "var(--error)";
-                valid = false;
-            } else {
-                confirm.style.borderColor = "var(--glass-border)";
-            }
-
-            if (valid) {
-                // Simulate loading state
-                const btn = form.querySelector('button');
-                btn.innerText = "Creating Account...";
-                btn.style.opacity = "0.7";
-
-                setTimeout(() => {
-                    alert("Registration successful");
-                    window.location.href = "login.html";
-                }, 1000);
-            }
         });
 
         // Reset border color on input
